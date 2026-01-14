@@ -1,5 +1,5 @@
 // Simular BD tarefas
-let tarefasArray = []
+let tarefasArray = JSON.parse(localStorage.getItem('tarefas')) || []
 
 // hora
 
@@ -24,9 +24,21 @@ btn.addEventListener('click', clicar)
 btnRemove.addEventListener('click', apagar)
 tbodyList.addEventListener('click', update)
 
+function storage() {
+    localStorage.setItem('tarefas', JSON.stringify(tarefasArray))
+}
+
+// focar e apagar o input
+function inputFocus() {
+    inputTarefa.value = ''
+    inputTarefa.focus()
+}
+
 // atualizar tabela
 function updateList() {
     // Apagar select
+    inputFocus()
+    storage()
     tbodyList.innerHTML = ''
     if (tarefasArray.length != 0) {
         listSection.style.display = 'grid'
@@ -44,11 +56,7 @@ function updateList() {
         tbodyList.appendChild(novoOption)
     }
 }
-// focar e apagar o input
-function inputFocus() {
-    inputTarefa.value = ''
-    inputTarefa.focus()
-}
+
 // atualizar ou add nova tarefa
 function clicar() {
     const inputStatus = document.querySelector('input[name="status"]:checked')
@@ -61,11 +69,10 @@ function clicar() {
     }
     if (pos != -1) {
         tarefasArray[pos].estado = concluido
-        inputFocus()
     } else {
         let novaTarefa = {task: inputTarefa.value, estado: concluido}
         tarefasArray.push(novaTarefa)
-        inputFocus()
+        
     }
     updateList()
 }
@@ -75,14 +82,10 @@ function apagar() {
     if (pos != -1 && inputTarefa.value.length != 0) {
         tarefasArray.splice(pos, 1)
         updateList()
-        inputFocus()
-        return
     } else {
         alert('Digite ou selecione um item antes de apagar')
-        updateList()
-        inputFocus()
-        return
     }
+    return
 }
 // Selecionar para atualizar tarefa
 function update(event) {
@@ -93,3 +96,6 @@ function update(event) {
         return
     }
 }
+
+// iniciar lista guardada no localstorage
+updateList()
