@@ -72,7 +72,7 @@ const update = () => {
 // addEventListener
 
 btnAdicionar.addEventListener('click', (event) => {
-    event.preventDefault();
+    event.preventDefault()
     const tipo = inputDescricao.value.trim().toUpperCase()
     const valor = inputValor.value.trim()
     if (tipo !== "" && valor !== "") {

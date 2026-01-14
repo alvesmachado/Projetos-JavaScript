@@ -14,6 +14,12 @@
     --cor-saida: red;
 }
 
+.escuro {
+    --cor-de-section: #222222;
+    --cor-de-section2: #303030;
+    --cor-de-fundo: #0c0c0c;
+    --cor-de-texto: rgb(255, 255, 255);
+}
 
 * {
     margin: 0px;
@@ -102,6 +108,25 @@ header > div {
     color: var(--cor-principal2);
 }
 
+/* tema btn*/
+
+header .material-symbols-outlined {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 32px;
+    color: var(--cor-principal2);
+    transition: transform 0.5s ease;
+}
+
+header .material-symbols-outlined:hover {
+    transform: scale(0.9);
+    transition: transform 1s ease;
+}
+
+header .material-symbols-outlined:active {
+    transform: rotate(360deg);
+}
+
 /* RESUMO */
 
 .card {
@@ -152,7 +177,7 @@ header > div {
     justify-content: space-between;
     padding: 8px 16px;
     margin-bottom: 8px;
-    background-color: var(--cor-principal2);
+    background-color: var(--cor-de-section);
     border-left: 4px solid var(--cor-principal);
     transition: border-left 0.5s ease;
 }
@@ -214,7 +239,7 @@ button.material-symbols-outlined:active {
 }
 
 .campo input {
-    background-color: var(--cor-principal2);
+    background-color: var(--cor-de-section);
     color: var(--cor-de-texto);
     font-weight: bold;
     font-size: 16px;
