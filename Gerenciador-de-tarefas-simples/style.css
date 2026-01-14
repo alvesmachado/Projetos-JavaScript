@@ -1,0 +1,158 @@
+:root {
+    --cor-prin: rgb(255, 255, 255) ;
+    --cor-secu: rgb(141, 181, 255);
+    --cor-secu2:rgb(0, 119, 255);
+    --cor-secu3:rgb(238, 238, 238);
+    --cor-texto1: black;
+    --cor-true: rgb(170, 255, 170);
+    --cor-trueT: rgb(107, 184, 107);
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: var(--cor-secu2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main {
+    width: 100%;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+header > h1 {
+    color: var(--cor-prin);
+    text-align: center;
+    margin-top: 10px;
+}
+
+header > h2 {
+    color: var(--cor-prin);
+    text-align: center;
+    margin-bottom: 10%;
+}
+
+footer {
+    margin-top: 10%;
+    padding: 10px 0px;
+}
+
+footer a {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--cor-prin);
+}
+
+
+/* LISTA */
+
+#list {
+    background-color: var(--cor-secu);
+    grid-template-columns: 24px 1fr 24px;
+    grid-template-rows: 24px 1fr 24px;
+    display: none;
+}
+
+#list > table {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    border: 2px solid var(--cor-texto1);
+    flex-direction: column;
+    border-collapse: collapse;
+}
+
+th {
+    border: 2px solid var(--cor-texto1);
+    background-color: var(--cor-prin);
+    padding: 4px;
+}
+
+td {
+    border: 2px solid var(--cor-texto1);
+    padding: 4px;
+}
+
+tbody > tr {
+    background-color: var(--cor-secu3);
+}
+
+thead {
+    background-color: var(--cor-secu);
+}
+
+tbody {
+    background-color: var(--cor-secu);
+    min-height: 400px;
+}
+
+.isTrue {
+    background-color: var(--cor-true);
+    color: var(--cor-trueT);
+}
+
+
+/* INPUT */
+
+#inputList {
+    background-color: var(--cor-prin);
+    padding: 24px 0px;
+    display: grid;
+    grid-template-columns:24px 1fr 1fr 24px;
+}
+
+#iTarefa {
+    grid-column: 2 / -2;
+    grid-row: 1 / 2;
+    padding: 8px;
+    margin: 10px 0px;
+}
+#iTrueLabel {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    text-align: center;
+}
+#iTrue {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+}
+#iFalse {
+    grid-column: 3 / 4;
+    grid-row: 3 / 4;
+}
+#iFalseLabel {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    text-align: center;
+}
+#btnC{
+    grid-column: 2 / 4;
+    grid-row: 4 / 5;
+    padding: 4px;
+    margin-top: 10px;
+}
+
+#btnR{
+    grid-column: 2 / 4;
+    grid-row: 5 / 6;
+    padding: 4px;
+    margin-top: 10px;
+}
