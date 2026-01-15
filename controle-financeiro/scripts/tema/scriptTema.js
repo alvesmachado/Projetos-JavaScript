@@ -2,26 +2,14 @@ const body = document.body
 const btnTema = document.querySelector('header > div > .material-symbols-outlined')
 let tema = localStorage.getItem('tema') || 'sunny'
 
-// event
-
-btnTema.addEventListener('click', (event) => {
-    event.preventDefault()
-    if (tema == 'sunny') {
-        body.classList.add('escuro')
-        tema = 'moon_stars'
-    } else {
-        body.classList.remove('escuro')
-        tema = 'sunny'
-    }
+// eventos
+const atualizar = () => {
+    body.classList.toggle('escuro', tema === 'moon_stars')
     btnTema.innerHTML = tema
     localStorage.setItem('tema', tema)
+}
+btnTema.addEventListener('click', (event) => {
+    tema = (tema === 'sunny' ? 'moon_stars' : 'sunny')
+    atualizar(tema)
 })
-
-window.addEventListener('DOMContentLoaded', () => {
-    if (tema == 'sunny') {
-        body.classList.remove('escuro')
-    } else {
-        body.classList.add('escuro')
-    }
-    btnTema.innerHTML = tema
-})
+atualizar(tema)
