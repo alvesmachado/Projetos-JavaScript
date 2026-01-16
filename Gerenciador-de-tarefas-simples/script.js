@@ -8,6 +8,7 @@ let dataHoje = new Date()
 // chamada
 const btn = document.querySelector('#btnC')
 const btnRemove = document.querySelector('#btnR')
+const btnFilter = document.querySelector('#btnL')
 // entrada da tarefa
 const inputTarefa = document.querySelector('#iTarefa')
 const listSection = document.querySelector('#list')
@@ -23,6 +24,19 @@ dataH2.innerHTML = `${String(dataHoje.getDate()).padStart(2, '0')}/${String(data
 btn.addEventListener('click', clicar)
 btnRemove.addEventListener('click', apagar)
 tbodyList.addEventListener('click', update)
+btnFilter.addEventListener('click', () => {
+    const inputStatusFilter = document.querySelector('input[name="listStatus"]:checked')
+    if (inputStatusFilter.id == 'iAllTrue') {
+        updateList('iAllTrue')
+    } else if (inputStatusFilter.id == 'iListTrue') {
+        updateList('iListTrue')
+    } else {
+        updateList('iFalseTrue')
+    }
+})
+inputTarefa.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') clicar();
+});
 
 function storage() {
     localStorage.setItem('tarefas', JSON.stringify(tarefasArray))
@@ -35,24 +49,28 @@ function inputFocus() {
 }
 
 // atualizar tabela
-function updateList() {
+function updateList(f) {
     // Apagar select
     inputFocus()
     storage()
     tbodyList.innerHTML = ''
-    if (tarefasArray.length != 0) {
-        listSection.style.display = 'grid'
+    listSection.style.display = tarefasArray.length != 0 ? 'grid' : 'none'
+    let novaArray = tarefasArray
+    if (f == 'iListTrue') {
+        novaArray = novaArray.filter(item => item.estado == 'Completo')
+    } else if (f == 'iFalseTrue') {
+        novaArray = novaArray.filter(item => item.estado == 'Incompleto')
     } else {
-        listSection.style.display = 'none'
+        novaArray = tarefasArray
     }
-    for(let cont in tarefasArray){
+
+    for(let cont in novaArray){
         let novoOption = document.createElement('tr')
-        novoOption.id = 'trkey' + cont
-        if (tarefasArray[cont].estado == 'Completo') {
+        if (novaArray[cont].estado == 'Completo') {
             novoOption.className = 'isTrue'
         }
-        novoOption.innerHTML += `<td>${tarefasArray[cont].task}</td>`
-        novoOption.innerHTML += `<td style="text-align: center;">${tarefasArray[cont].estado}</td>`
+        novoOption.innerHTML += `<td class="nameTd">${novaArray[cont].task}</td>`
+        novoOption.innerHTML += `<td style="text-align: center;">${novaArray[cont].estado}</td>`
         tbodyList.appendChild(novoOption)
     }
 }
@@ -74,7 +92,7 @@ function clicar() {
         tarefasArray.push(novaTarefa)
         
     }
-    updateList()
+    updateList('iAllTrue')
 }
 // Apagar tarefa
 function apagar() {
@@ -91,11 +109,11 @@ function apagar() {
 function update(event) {
     const linhaUpdate = event.target.closest('tr')
     if (linhaUpdate) {
-        const tarefaUpdate = linhaUpdate.id.replace('trkey', '')
-        inputTarefa.value = tarefasArray[tarefaUpdate].task
+        const tarefaUpdate = linhaUpdate.querySelector(".nameTd").innerText
+        inputTarefa.value = tarefasArray[tarefasArray.findIndex(tarefa => tarefa.task == tarefaUpdate)].task
         return
     }
 }
 
 // iniciar lista guardada no localstorage
-updateList()
+updateList('iAllTrue')

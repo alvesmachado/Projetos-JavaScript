@@ -12,6 +12,16 @@
         <h2></h2>
     </header>
     <main> 
+        <section id="inputFilter">
+            <h2>Filtros</h2>
+            <label for="iAllTrue" class="iAllLabel">Todos</label>
+            <input type="radio" name="listStatus" id="iAllTrue" checked>
+            <label for="iListTrue" class="iTrueLabel">Completo</label>
+            <input type="radio" name="listStatus" id="iListTrue">
+            <label for="iListFalse" class="iFalseLabel">Incompleto</label>
+            <input type="radio" name="listStatus" id="iListFalse">
+            <input type="button" id="btnL" value="Atualizar">
+        </section>
         <section id="list">
             <table>
                 <colgroup>
@@ -31,9 +41,9 @@
         </section>
         <section id="inputList">
             <input type="text" name="tarefa" id="iTarefa" placeholder="Escreva sua tarefa aqui...">
-            <label for="iTrue" id="iTrueLabel">Completo</label>
+            <label for="iTrue" class="iTrueLabel">Completo</label>
             <input type="radio" name="status" id="iTrue" checked>
-            <label for="iFalse" id="iFalseLabel">Incompleto</label>
+            <label for="iFalse" class="iFalseLabel">Incompleto</label>
             <input type="radio" name="status" id="iFalse">
             <input type="button" id="btnC" value="Criar / Atualizar">
             <input type="button" id="btnR" value="Remover">
