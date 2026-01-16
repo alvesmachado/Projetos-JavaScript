@@ -7,6 +7,11 @@ let carta2 = ''
 let pontos = 0
 let tentativas = 0
 let aguardando = false
+const configImagens = {
+    'A': 'images/img0.jpg',
+    'B': 'images/img1.jpeg',
+    'C': 'images/img2.jpg',
+};
 
 // Ele compara os itens e decide a ordem na sorte
 const randomCards = () => {
@@ -19,11 +24,8 @@ const randomCards = () => {
     cartas.sort(() => Math.random() - 0.5)
     for (let cont = 0; cont < cartas.length; cont++) {
         let content = document.querySelector(`[value="${cont}"]`)
-        if (cartas[cont] == 'A') {
-            content.querySelector(`.back`).style.backgroundImage = 'url(images/img0.jpg)'
-        } else {
-            content.querySelector(`.back`).style.backgroundImage = cartas[cont] == 'B' ? 'url(images/img1.jpeg)' : 'url(images/img2.jpg)'
-        }
+        const letra = cartas[cont]
+        content.querySelector(`.back`).style.backgroundImage = `url(${configImagens[letra]})`
         content.classList.remove('Parar')
         content.querySelector(`.flipper`).classList.remove('ativo')
     }
