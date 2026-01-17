@@ -1,0 +1,125 @@
+:root {
+    --cor-bg: #f4f2f7;
+    --cor-sec: white;
+    --cor-sec2: #f2f0f5;
+    --cor-sec3: #8b888f;
+    --cor-text: rgb(10, 10, 10);
+    --cor-prin: rgb(140, 0, 255);
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: var(--cor-text);
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+    background-color: var(--cor-bg);
+}
+
+header {
+    background-color: var(--cor-sec);
+    padding: 12px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.24);
+}
+
+header h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+    color: var(--cor-prin);
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+#mainSection {
+    width: 100%;
+    max-width: 680px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin: 16px 0px;
+}
+
+.post {
+    background-color: var(--cor-sec);
+    padding: 12px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.24);
+    border-radius: 12px;
+}
+
+.post > h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.post > p {
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.reactButtons {
+    border-top: 1px solid var(--cor-sec2);
+    border-bottom: 1px solid var(--cor-sec2);
+    padding: 12px;
+    text-align: center;
+}
+
+.reactButtons a {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    transition: color 0.5s ease;
+}
+
+.reactButtons a:hover {
+    color: var(--cor-prin);
+}
+
+.divComentario {
+    padding: 12px;
+}
+
+.comentario {
+    background-color: var(--cor-bg);
+    padding: 12px;
+    border-radius: 12px;
+    margin: 12px 0px;
+}
+
+.nomeComentario {
+    font-size: 14px;
+}
+.comantarioPost {
+    font-size: 14px;
+}
+
+.comentar {
+    background-color: var(--cor-sec2);
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    border-radius: 12px;
+}
+
+.comentar input {
+    border: none;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--cor-sec3);
+    font-size: 16px;
+    padding: 4px;
+}
+
+input[type="button"] {
+    align-self: end;
+    padding: 4px;
+    border-radius: 32px;
+    cursor: pointer;
+}
