@@ -1,51 +1,5 @@
-const body = document.body
+
 const mainSection = document.querySelector('#mainSection')
-
-/*
-const iniciarHtml = () => {
-    let contPub = 1
-    const createHeader = document.createElement('header')
-    const createLogo = document.createElement('h1')
-    createLogo.innerText = 'API Fetch'
-
-    const createMain = document.createElement('main')
-
-    body.appendChild(createHeader)
-    body.appendChild(createLogo)
-    body.appendChild(createMain)
-    for (let index = 0; index < contPub; index++) {
-        const createSection = document.createElement(`section`)
-        createSection.id = `section${index+1}`
-        createSection.className = `sectionClass`
-
-        const createTitle = document.createElement(`h2`)
-        createTitle.innerText = `Section ${index+1}`
-
-        createMain.appendChild(createSection)
-        createSection.appendChild(createTitle)
-
-    }
-    const createUpBTN = document.createElement('button')
-    createUpBTN.innerText = `Atualizar dados`
-    createUpBTN.addEventListener('click', () => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-        .then((r) => r.json())
-        .then((d) => {
-            const createUl = document.createElement('ul')
-            createMain.appendChild(createUl)
-            d.map( (item) => {
-                const novaLi = document.createElement('li')
-                novaLi.innerText = `${item.title}`
-                createUl.appendChild(novaLi)
-            })
-            
-        })
-    })
-    createMain.querySelector('section#section1').appendChild(createUpBTN)
-
-}
-iniciarHtml()
-*/
 
 window.addEventListener('DOMContentLoaded', buscarPost = () => {
     fetch(`https://jsonplaceholder.typicode.com/posts`)
@@ -84,6 +38,17 @@ window.addEventListener('DOMContentLoaded', buscarPost = () => {
                 const createContainerComentarios = document.createElement('div')
                 createContainerComentarios.classList.add('divComentario')
                 createPost.appendChild(createContainerComentarios)
+
+                // add comentario
+                fetch(`https://jsonplaceholder.typicode.com/comments?postId=${item.id}`)
+                .then((response) => response.json())
+                .then((coment) => {
+                    coment.forEach((comentItem) => {
+                        const newComent = `<div class="comentario"><h4 class="nomeComentario">${comentItem.name}</h4><p class="comantarioPost"> ${comentItem.body}</p></div>`
+                        createContainerComentarios.insertAdjacentHTML('beforeend', newComent)
+                    })
+                })                  
+
 
                 // Container dos comentarios
                 const createContainerComentar = document.createElement('div')

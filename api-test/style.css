@@ -44,7 +44,7 @@ main {
     display: grid;
     grid-template-columns: 1fr;
     gap: 16px;
-    margin: 16px 0px;
+    margin: 16px;
 }
 
 .post {
