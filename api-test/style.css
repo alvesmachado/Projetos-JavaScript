@@ -22,6 +22,7 @@ html, body {
 }
 
 header {
+    display: none;
     background-color: var(--cor-sec);
     padding: 12px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.24);
@@ -35,7 +36,10 @@ header h1 {
 
 main {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100%;
 }
 
 #mainSection {
@@ -45,6 +49,39 @@ main {
     grid-template-columns: 1fr;
     gap: 16px;
     margin: 16px;
+    position: relative;
+}
+
+/* 1. Definimos o que a animação faz */
+@keyframes rodar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#iLoading {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+    color: var(--cor-prin);
+    position: fixed;
+    top: 50%;
+    transform: translate(0%, -50%);
+}
+
+/* 2. Aplicamos à classe da imagem */
+#iLoading > img {
+    margin-left: 16px;
+  width: 58px; /* Tamanho da sua imagem */
+  height: 58px;
+  border-radius: 50%; /* Se quiser que seja circular */
+  /* nome da animação | duração | tipo de curva | repetição */
+  animation: rodar 2s linear infinite;
 }
 
 .post {
