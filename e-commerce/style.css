@@ -33,6 +33,7 @@ header {
     top: 0;
     font-weight: bold;
     z-index: 1000;
+    box-shadow: 0px 4px 6px var(--cor-sombra);
 }
 
 header .logo {
@@ -115,13 +116,13 @@ nav ul li a:hover, nav ul li a.active, #navLinkCarrinho.active, #navLinkCarrinho
     text-overflow: ellipsis;
 }
 
-.product-card .desconto {
+.desconto {
     font-size: 1rem;
     color: var(--cor-desconto);
     text-decoration: line-through;
 }
 
-.product-card .price {
+.price {
     font-size: 1.3rem;
     font-weight: bold;
     color: var(--cor-preco);
@@ -137,8 +138,10 @@ nav ul li a:hover, nav ul li a.active, #navLinkCarrinho.active, #navLinkCarrinho
 /* Seção de Título */
 .carrinho-header {
     text-align: start;
-    padding: 40px 20px;
+    margin: 0 auto;
+    padding: 40px 5%;
     border-bottom: 1px solid var(--cor-sombra);
+    max-width: 1300px;
 }
 
 .carrinho-header h1 {
@@ -157,7 +160,7 @@ nav ul li a:hover, nav ul li a.active, #navLinkCarrinho.active, #navLinkCarrinho
 
 .product-grid-carrinho > div a{
     display: grid;
-    grid-template-columns: auto 1fr 1fr;
+    grid-template-columns: auto 2fr 1fr;
     align-items: center;
     gap: 20px;
     text-decoration: none;
@@ -212,6 +215,14 @@ nav ul li a:hover, nav ul li a.active, #navLinkCarrinho.active, #navLinkCarrinho
     transition: padding 0.5s ease;
 }
 
+.removeCarrinho {
+    color: var(--cor-prin);
+    font-weight: bold;
+    grid-column: 1 / -1;
+    justify-self: end;
+    transform: translateY(-40px);
+}
+
 /* TOTAL */
 
 .product-subtotal-carrinho {
@@ -249,4 +260,148 @@ nav ul li a:hover, nav ul li a.active, #navLinkCarrinho.active, #navLinkCarrinho
 
 .product-subtotal-carrinho input:active {
     background-color: var(--cor-prin);
+}
+
+/* INICIO */
+
+.hero-section {
+    background-color: var(--cor-section-header);
+    box-shadow: 0px 4px 6px var(--cor-sombra);
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    margin: 20px 5%;
+}
+
+.container-info {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    height: 400px;
+    margin: 20px 5%;
+}
+
+.container-info h2{
+    line-break: anywhere;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.container-info h3{
+    line-break: anywhere;
+    font-size: 1.7rem;
+    text-align: center;
+}
+
+
+.container-reveal {
+    padding: 20px 5%;
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    background-color: var(--cor-section-header);
+    grid-column: 2 / 3;
+}
+
+/* A camada que desliza por cima */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%; /* Começa invisível */
+    height: 100%;
+    z-index: 2;
+    background-color: var(--cor-section-header);
+}
+
+.container-reveal img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* Classe de animação que o JS vai ativar */
+.animar-reveal .overlay {
+    animation: deslizar 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+@keyframes deslizar {
+    0%   { left: 0; width: 0%; }
+    50%  { left: 0; width: 100%; } /* Cobre tudo e troca a imagem aqui */
+    100% { left: 100%; width: 0%; } /* Sai pela direita */
+}
+
+.categoriaHeroShop {
+    background-color: var(--cor-section-header);
+    box-shadow: 0px 4px 6px var(--cor-sombra);
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    margin: 20px 5%;
+}
+
+.categoriaHeroShop-info {
+    padding: 20px 5%;
+}
+
+.categoriaHeroShop-info h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.categoriaHeroShop-info > div {
+    height: 100px;
+    position: relative;
+}
+
+.categoriaHeroShop-info .info-text{
+    height: 100px;
+    display: flex;
+    justify-self: center;
+}
+
+.categoriaHeroShop-info .infos {
+    padding: 0px 20px;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-self: center;
+    border-right: 1px solid var(--cor-sombra);
+}   
+
+.categoriaHeroShop-info .borderOff {
+    border-right: 0px !important;
+}
+
+.categoriaHeroShop-info .infos strong {
+    margin-bottom: 8px;
+}
+
+.categoriaHeroShop-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.categoriaHeroShop-action a {
+    background-color: var(--cor-prin);
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.categoriaHeroShop-action a:hover {
+    background-color: darkred;
+}
+
+.categoriaHeroShop-action a:active {
+    background-color: var(--cor-preco);
 }

@@ -5,7 +5,7 @@ export const mainGet = document.querySelector(`main`)
 
 
 // receber Parametro
-const url = new URLSearchParams(window.location.search)
+export const url = new URLSearchParams(window.location.search)
 const urlGet = url.get('option')
 // se o valor for null é a abertura do site(0)
 export let categoria = categoriaArray.find(item => {
@@ -13,11 +13,27 @@ export let categoria = categoriaArray.find(item => {
     return item.id === idBusca
 })
 
+const urlAdd = url.get('add')
+// se o valor for null é a abertura do site(0)
+if (urlAdd !== null) {
+    conta.find((item) => {
+        if (contaLogadaId == item.id) { 
+            estoqueArray.find((itemEstoque) => {
+            if (itemEstoque.id == Number(urlAdd)) {
+                localStorage.setItem(`carrinho${item.id}`, JSON.stringify([...item.carrinho, Number(urlAdd)]))
+                return item.carrinho.push(Number(urlAdd))
+            }
+            })
+        }
+    })
+}
+
 // HEADER
 // link categoria menu
 document.title = `EcoShop - ${categoria.nome} | ${categoria.desc}`;
 const ulLinkHeader = document.querySelector(`#navLink${categoria.nome}`)
-const carrinhoHeader = document.querySelector(`#navLinkCarrinho`)
+
+export const carrinhoHeader = document.querySelector(`#navLinkCarrinho`)
 // ativar a opção escolhida
 ulLinkHeader.classList.add('active')
 

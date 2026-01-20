@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container-reveal {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        /* A camada que desliza por cima */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%; /* Começa invisível */
+            height: 100%;
+            background-color: #ffffff; /* Cor do fundo do site */
+            z-index: 2;
+        }
+
+        img {
+            height: 100%;
+            display: block;
+        }
+
+        /* Classe de animação que o JS vai ativar */
+        .animar-reveal .overlay {
+            animation: deslizar 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        @keyframes deslizar {
+            0%   { left: 0; width: 0%; }
+            50%  { left: 0; width: 100%; } /* Cobre tudo e troca a imagem aqui */
+            100% { left: 100%; width: 0%; } /* Sai pela direita */
+        }
+    </style>
+</head>
+<body>
+   <div class="container-reveal">
+        <div class="overlay"></div>
+        <img id="banner" src="foto1.jpg">
+    </div>
+    <script>
+    const imagens = ["https://m.media-amazon.com/images/I/71Uw-zydT2L._AC_SX522_.jpg", "https://m.media-amazon.com/images/I/51EBZWetZqL._AC_SX342_SY445_QL70_ML2_.jpg"];
+    function trocarComEfeito() {
+        const container = document.querySelector('.container-reveal');
+        const img = document.querySelector('#banner');
+
+        container.classList.add('animar-reveal');
+
+        // Troca a imagem exatamente quando o overlay cobre tudo (600ms)
+        setTimeout(() => {
+            if (img.src === imagens[0]) {
+                img.src = imagens[1];
+            } else {
+                img.src = imagens[0];
+            }
+        }, 600);
+
+        // Remove a classe para poder repetir
+        setTimeout(() => {
+            container.classList.remove('animar-reveal');
+        }, 1200);
+    }
+
+    // Para fazer a cada 30 segundos como você queria:
+    setInterval(trocarComEfeito, 3000);
+    </script>
+</body>
+</html>

@@ -1,6 +1,53 @@
-import { categoriaArray, estoqueArray, conta, contaLogadaId } from './apis.js';
-import { mainGet, categoria } from './abrirPag.js';
+import { estoqueArray, conta, contaLogadaId, categoriaArray } from './apis.js';
+import { mainGet, categoria, url, carrinhoHeader } from './abrirPag.js';
 
+// imagems do banner
+const destaque = estoqueArray.filter((item) => item.desconto > 0).sort((a, b) => b.desconto - a.desconto).slice(0, 2)
+// const imagens = [destaque[0].imagem, destaque[1].imagem]
+
+const trocarComEfeito = () => {
+    const containerReveal = document.querySelector('.container-reveal')
+    const img = document.querySelector('#banner')
+    const containerInfo = document.querySelector('.container-info')
+    const containerInfoShopInfo = document.querySelector('.categoriaHeroShop-info > div')
+    const btnADDcarrinhoInicio = document.querySelector('.categoriaHeroShop-action > a')
+
+    containerInfoShopInfo.classList.add('animar-reveal')
+    containerReveal.classList.add('animar-reveal')
+    containerInfo.classList.add('animar-reveal')
+
+    // Troca a imagem exatamente quando o overlay cobre tudo (600ms)
+    setTimeout(() => {
+        if (img.src == destaque[0].imagem) {
+            img.src = destaque[1].imagem
+            containerInfo.querySelector('.container-texto').innerHTML = ""
+            containerInfo.querySelector('.container-texto').insertAdjacentHTML('beforeend', `<h2>${destaque[1].nome}</h2><h3 class="price">${(destaque[1].preco - destaque[1].desconto).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</h3>`)
+            containerInfoShopInfo.querySelector('.info-text').innerHTML = ""
+            containerInfoShopInfo.querySelector('.info-text').insertAdjacentHTML('beforeend', `<p class="infos"><strong>Estoque</strong> ${destaque[1].estoque} unidades</p>
+            <p class="infos"><strong>Desconto</strong> ${destaque[1].desconto.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})} de desconto</p>
+            <p class="infos"><strong>Preço sem desconto</strong> ${destaque[1].preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</p>
+            <p class="infos borderOff"><strong>Categoria</strong> ${categoriaArray.find(item => destaque[1].categoriaId == item.id).nome}</p>`) 
+            btnADDcarrinhoInicio.href = `index.html?option=-1&add=${destaque[1].id}`
+        } else {
+            img.src = destaque[0].imagem
+            containerInfo.querySelector('.container-texto').innerHTML = ""
+            containerInfo.querySelector('.container-texto').insertAdjacentHTML('beforeend', `<h2>${destaque[0].nome}</h2><h3 class="price">${(destaque[0].preco - destaque[0].desconto).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</h3>`)
+            containerInfoShopInfo.querySelector('.info-text').innerHTML = ""
+            containerInfoShopInfo.querySelector('.info-text').insertAdjacentHTML('beforeend', `<p class="infos"><strong>Estoque</strong> ${destaque[0].estoque} unidades</p>
+            <p class="infos"><strong>Desconto</strong> ${destaque[0].desconto.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})} de desconto</p>
+            <p class="infos"><strong>Preço sem desconto</strong> ${destaque[0].preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</p>
+            <p class="infos borderOff"><strong>Categoria</strong> ${categoriaArray.find(item => destaque[0].categoriaId == item.id).nome}</p>`) 
+            btnADDcarrinhoInicio.href = `index.html?option=-1&add=${destaque[0].id}`
+        }
+    }, 600)
+
+    // Remove a classe para poder repetir
+    setTimeout(() => {
+         containerInfoShopInfo.classList.remove('animar-reveal')
+        containerReveal.classList.remove('animar-reveal')
+        containerInfo.classList.remove('animar-reveal')
+    }, 1200)
+}
 const categoriasCreate = () => {
     // categoria title
     const sectionTitleProduct = document.querySelector(`.category-header`)
@@ -15,11 +62,11 @@ const categoriasCreate = () => {
     // main grid product
 
     estoqueArray.filter((item) => item.categoriaId == categoria.id).forEach((itemFilter) => {
-        let formatadoPreco = itemFilter.preco.toLocaleString('pt-BR', { 
+        let formatadoPreco = (itemFilter.preco -itemFilter.desconto).toLocaleString('pt-BR', { 
         style: 'currency', 
         currency: 'BRL' 
         })
-        let formatadoDesconto = (itemFilter.desconto + itemFilter.preco).toLocaleString('pt-BR', { 
+        let formatadoDesconto = itemFilter.preco.toLocaleString('pt-BR', { 
         style: 'currency', 
         currency: 'BRL' 
         })
@@ -56,18 +103,7 @@ const categoriasCreate = () => {
         divProductGrid.insertAdjacentHTML('beforeend', newItem)
     })
 }
-
 const carrinhoCreate = () => {
-    /*conta.find((item) => {
-        if (contaLogadaId == item.id) {
-            item.carrinho.forEach((idProduct) => {
-                estoqueArray.filter((itemEstoque) => itemEstoque.id == idProduct).forEach((itemEach) => {
-                    console.log(itemEach.nome, item.nome) // chama o nome do carrinho
-                })
-            })
-            
-        }
-    })*/
     // categoria title
     const sectionTitleCarrinho = document.querySelector(`.carrinho-header`)
     // grid de produtos main
@@ -83,9 +119,25 @@ const carrinhoCreate = () => {
     conta.find((item) => {
         if (contaLogadaId == item.id) {
             nomeConta = item.nome
-
+            
         }
     })
+    
+    const urlRemove = url.get('remove')
+    // se o valor for null é a abertura do site(0)
+    if (urlRemove !== null) {
+        conta.find((item) => {
+            if (contaLogadaId == item.id) { 
+                estoqueArray.find((itemEstoque) => {
+                    if (itemEstoque.id == Number(urlRemove)) {
+                        localStorage.setItem(`carrinho${item.id}`, JSON.stringify([...item.carrinho, Number(urlRemove)].filter((id) => id !== Number(urlRemove))))
+                        item.carrinho = item.carrinho.filter((id) => id !== Number(urlRemove))
+                    }
+                })
+                carrinhoHeader.innerText = `Carrinho (${item.carrinho.length})`
+            }
+        })
+    }
     // main section title
     let sectionTitleCarrinhoContent = `<h1>Carrinho de Compras</h1><p><strong>${nomeConta}</strong>, sua lista de compras está aqui!</p>`
     sectionTitleCarrinho.insertAdjacentHTML('beforeend', sectionTitleCarrinhoContent)
@@ -95,13 +147,14 @@ const carrinhoCreate = () => {
             item.carrinho.find((idProduct) => {
                 estoqueArray.filter((itemEstoque) => itemEstoque.id == idProduct).forEach((itemEach) => {
                     if (itemEach.estoque > 0) {
-                        subtotal += itemEach.preco
-                        let divItemCarrinhoContent = `<div><a href="#"><img src='${itemEach.imagem}' alt='${itemEach.nome}'><span class='carrinhoItemNome'>${itemEach.nome}</span><span class='carrinhoItemPreco'>${itemEach.preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</span></a></div>`
+                        subtotal += itemEach.preco - itemEach.desconto
+                        let divItemCarrinhoContent = `<div><a href="#"><img src='${itemEach.imagem}' alt='${itemEach.nome}'><span class='carrinhoItemNome'>${itemEach.nome}</span><span class='carrinhoItemPreco'>${(itemEach.preco - itemEach.desconto).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</span></a><a href="index.html?option=-1&remove=${itemEach.id}" class="removeCarrinho">Remover</a></div>`
                         divProductGridCarrinho.insertAdjacentHTML('beforeend', divItemCarrinhoContent)
                     } else {
-                        let divItemCarrinhoContent = `<div><a href="#"><img src='${itemEach.imagem}' alt='${itemEach.nome}'><span class='carrinhoItemNome'>${itemEach.nome}</span><span class='carrinhoItemPreco'>SEM ESTOQUE</span></a></div>`
+                        let divItemCarrinhoContent = `<div><a href="#"><img src='${itemEach.imagem}' alt='${itemEach.nome}'><span class='carrinhoItemNome'>${itemEach.nome}</span><span class='carrinhoItemPreco'>SEM ESTOQUE</span></a><a href="index.html?option=-1&remove=${itemEach.id}" class="removeCarrinho">Remover</a></div>`
                         divProductGridCarrinho.insertAdjacentHTML('beforeend', divItemCarrinhoContent)
                     }
+
                 })
             })
 
@@ -116,7 +169,38 @@ const iniciarPag = () => {
         mainGet.insertAdjacentHTML('beforeend', createSectionDiv)
         categoriasCreate()
     } else if (categoria.id == 0) {
-        console.log('home')
+        const createSectionDiv = `<section class="hero-section">
+            <div class="container-info">
+                <div class="overlay"></div>
+                <div class="container-texto">
+                    <h2>${destaque[0].nome}</h2>
+                    <h3 class="price">${(destaque[0].preco - destaque[0].desconto).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</h3>
+                </div>
+            </div>
+            <div class="container-reveal">
+                <div class="overlay"></div>
+                <img id="banner" src="${destaque[0].imagem}">
+            </div>
+        </section>
+        <section class="categoriaHeroShop">
+            <div class="categoriaHeroShop-info">
+                <h2>Informações do produto do Super Desconto!</h2>
+                <div>
+                    <div class="overlay"></div>
+                    <div class="info-text">
+                        <p class="infos"><strong>Estoque</strong> ${destaque[0].estoque} unidades</p>
+                        <p class="infos"><strong>Desconto</strong> ${destaque[0].desconto.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})} de desconto</p>
+                        <p class="infos"><strong>Preço sem desconto</strong> ${destaque[0].preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</p>
+                        <p class="infos borderOff"><strong>Categoria</strong> ${categoriaArray.find(item => destaque[0].categoriaId == item.id).nome}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="categoriaHeroShop-action">
+                <a href="index.html?option=-1&add=${destaque[0].id}">Adicionar ao carrinho</a>
+            </div>
+        </section>`
+        mainGet.insertAdjacentHTML('beforeend', createSectionDiv)
+        setInterval(trocarComEfeito, 30000);
     } else if (categoria.id == -1) {
         const createSectionDiv = `<section class="carrinho-header"></section><div class="product-grid-carrinho"></div><div class="product-subtotal-carrinho"></div>`
         mainGet.insertAdjacentHTML('beforeend', createSectionDiv)

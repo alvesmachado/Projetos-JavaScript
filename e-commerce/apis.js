@@ -21,7 +21,7 @@ export let estoqueArray = [{
 	'nome': 'Apple Watch Series 10 GPS • Caixa prateada de alumínio – 42 mm • Pulseira esportiva denim – M/G',
 	'categoriaId': 1,
 	'imagem': 'https://m.media-amazon.com/images/I/51EBZWetZqL._AC_SX342_SY445_QL70_ML2_.jpg',
-	'preco': 3299,
+	'preco': 5499,
 	'desconto': 2200,
 	'estoque': 100
 	},
@@ -30,7 +30,7 @@ export let estoqueArray = [{
 	'nome': 'AirPods 4 com Cancelamento Ativo de Ruído',
 	'categoriaId': 1,
 	'imagem': 'https://m.media-amazon.com/images/I/41WMBnjyitL._AC_SX522_.jpg',
-	'preco': 1699,
+	'preco': 1999,
 	'desconto': 300,
 	'estoque': 60
 	},
@@ -78,7 +78,13 @@ export let conta = [
         'id': 1,
         'nome': 'Michael Douglas Alves Machado',
         'email': 'michaeldouglasalvesmachado@gmail.com',
-        'carrinho': [5, 4, 3, 1]
+        'carrinho': localStorage.getItem('carrinho1') ? JSON.parse(localStorage.getItem('carrinho1')) : []
+    },
+	{
+        'id': 2,
+        'nome': 'Nicolas Alves Machado',
+        'email': 'nicolasalvesmachado@gmail.com',
+        'carrinho': localStorage.getItem('carrinho2') ? JSON.parse(localStorage.getItem('carrinho2')) : []
     }
 ]
 
