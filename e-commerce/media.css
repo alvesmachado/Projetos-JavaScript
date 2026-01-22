@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+@media screen and (max-width: 790px) {
+    /* header Display none temporario(TASK: menu mobile)*/
+    nav {
+        display: none;
+    }
+
+    /* Inicio hero e produtos*/
+    .hero-section {
+        grid-template-columns: 1fr;
+    }
+    .container-reveal {
+        grid-column: 1 / 1;
+        order: -1;
+    }
+    .container-info {
+        height: auto;
+        min-height: 200px;
+    }
+
+    /* Produtos */
+    .categoriaHeroShop {
+        grid-template-columns: 1fr;
+    }
+    .categoriaHeroShop .info-text {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    .categoriaHeroShop-info .infos {
+        padding: 10px 20px;
+        border-bottom: 1px solid var(--cor-sombra);
+        border-right: 0px !important;
+    }
+    .categoriaHeroShop-info .borderOff {
+        border-bottom: 1px solid var(--cor-sombra) !important;
+    }
+    .categoriaHeroShop .categoriaHeroShop-action {
+        margin-bottom: 24px;
+    }
+    /* Carrinho */
+    .product-grid-carrinho > div {
+        margin-bottom: 24px;
+        background-color: var(--cor-section-header);
+        box-shadow: 0px 4px 6px var(--cor-sombra);
+    }
+    .product-grid-carrinho > div a {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: center;
+        gap: 20px;
+        text-decoration: none;
+    }
+    .product-grid-carrinho > div img {
+        height: 200px;
+        width: 100%;
+    }
+    .carrinhoItemNome {
+        height: auto;
+        text-align: center;
+        background-color: var(--cor-section-header);
+    }
+    .carrinhoItemPreco {
+        border-left: none;
+        border-top: 4px solid var(--cor-texto);
+        font-size: 32px;
+        transition: border-top 0.5s ease;
+    }
+    .product-grid-carrinho > div a:hover .carrinhoItemPreco {
+        border-top: 12px solid var(--cor-texto);
+        border-left: none;
+    }
+    .removeCarrinho {
+        background-color: var(--cor-fundo);
+        padding: 8px 32px;
+        border-radius: 32px;
+    }
+}

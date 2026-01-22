@@ -28,10 +28,25 @@ if (urlAdd !== null) {
     })
 }
 
+const urlProduct = url.get('product')
+// se o valor for null é a abertura do site(0)
+export let produto = estoqueArray.find(item => {
+    if (urlProduct !== null && urlProduct == item.id) {
+        return item
+    }
+})
+
 // HEADER
 // link categoria menu
-document.title = `EcoShop - ${categoria.nome} | ${categoria.desc}`;
-const ulLinkHeader = document.querySelector(`#navLink${categoria.nome}`)
+let categoriaHeader = (categoria.nome === 'Produto')? categoriaArray.find(item => item.id == produto.categoriaId).nome :categoria.nome
+console.log(categoriaHeader)
+if (categoria.nome !== 'Produto') {
+    document.title = `EcoShop - ${categoria.nome} | ${categoria.desc}`
+} else {
+    document.title = `EcoShop - ${produto.nome} | ${categoria.desc}`
+}
+
+const ulLinkHeader = document.querySelector(`#navLink${categoriaHeader}`)
 
 export const carrinhoHeader = document.querySelector(`#navLinkCarrinho`)
 // ativar a opção escolhida

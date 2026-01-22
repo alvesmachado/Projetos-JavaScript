@@ -1,18 +1,18 @@
 import { estoqueArray, conta, contaLogadaId, categoriaArray } from './apis.js';
-import { mainGet, categoria, url, carrinhoHeader } from './abrirPag.js';
+import { mainGet, categoria, url, carrinhoHeader, produto } from './abrirPag.js';
 
 // imagems do banner
 const destaque = estoqueArray.filter((item) => item.desconto > 0).sort((a, b) => b.desconto - a.desconto).slice(0, 2)
 // const imagens = [destaque[0].imagem, destaque[1].imagem]
 
+
+
 const trocarComEfeito = () => {
     const containerReveal = document.querySelector('.container-reveal')
     const img = document.querySelector('#banner')
     const containerInfo = document.querySelector('.container-info')
-    const containerInfoShopInfo = document.querySelector('.categoriaHeroShop-info > div')
     const btnADDcarrinhoInicio = document.querySelector('.categoriaHeroShop-action > a')
 
-    containerInfoShopInfo.classList.add('animar-reveal')
     containerReveal.classList.add('animar-reveal')
     containerInfo.classList.add('animar-reveal')
 
@@ -21,29 +21,16 @@ const trocarComEfeito = () => {
         if (img.src == destaque[0].imagem) {
             img.src = destaque[1].imagem
             containerInfo.querySelector('.container-texto').innerHTML = ""
-            containerInfo.querySelector('.container-texto').insertAdjacentHTML('beforeend', `<h2>${destaque[1].nome}</h2><h3 class="price">${(destaque[1].preco - destaque[1].desconto).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</h3>`)
-            containerInfoShopInfo.querySelector('.info-text').innerHTML = ""
-            containerInfoShopInfo.querySelector('.info-text').insertAdjacentHTML('beforeend', `<p class="infos"><strong>Estoque</strong> ${destaque[1].estoque} unidades</p>
-            <p class="infos"><strong>Desconto</strong> ${destaque[1].desconto.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})} de desconto</p>
-            <p class="infos"><strong>Preço sem desconto</strong> ${destaque[1].preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</p>
-            <p class="infos borderOff"><strong>Categoria</strong> ${categoriaArray.find(item => destaque[1].categoriaId == item.id).nome}</p>`) 
-            btnADDcarrinhoInicio.href = `index.html?option=-1&add=${destaque[1].id}`
+            containerInfo.querySelector('.container-texto').insertAdjacentHTML('beforeend', `<h2>${destaque[1].nome}</h2><h3 class="price">${(destaque[1].preco - destaque[1].desconto).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</h3><div class="categoriaHeroShop-action categoriaHeroShop-action-home"><a href="index.html?option=-1&add=${destaque[1].id}">Adicionar ao carrinho</a></div>`)
         } else {
             img.src = destaque[0].imagem
             containerInfo.querySelector('.container-texto').innerHTML = ""
-            containerInfo.querySelector('.container-texto').insertAdjacentHTML('beforeend', `<h2>${destaque[0].nome}</h2><h3 class="price">${(destaque[0].preco - destaque[0].desconto).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</h3>`)
-            containerInfoShopInfo.querySelector('.info-text').innerHTML = ""
-            containerInfoShopInfo.querySelector('.info-text').insertAdjacentHTML('beforeend', `<p class="infos"><strong>Estoque</strong> ${destaque[0].estoque} unidades</p>
-            <p class="infos"><strong>Desconto</strong> ${destaque[0].desconto.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})} de desconto</p>
-            <p class="infos"><strong>Preço sem desconto</strong> ${destaque[0].preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</p>
-            <p class="infos borderOff"><strong>Categoria</strong> ${categoriaArray.find(item => destaque[0].categoriaId == item.id).nome}</p>`) 
-            btnADDcarrinhoInicio.href = `index.html?option=-1&add=${destaque[0].id}`
+            containerInfo.querySelector('.container-texto').insertAdjacentHTML('beforeend', `<h2>${destaque[0].nome}</h2><h3 class="price">${(destaque[0].preco - destaque[0].desconto).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</h3><div class="categoriaHeroShop-action categoriaHeroShop-action-home"><a href="index.html?option=-1&add=${destaque[0].id}">Adicionar ao carrinho</a></div>`)
         }
     }, 600)
 
     // Remove a classe para poder repetir
     setTimeout(() => {
-         containerInfoShopInfo.classList.remove('animar-reveal')
         containerReveal.classList.remove('animar-reveal')
         containerInfo.classList.remove('animar-reveal')
     }, 1200)
@@ -73,7 +60,7 @@ const categoriasCreate = () => {
         let newItem = ''
         if (itemFilter.desconto == 0 && itemFilter.estoque > 0) {
             newItem = `
-            <a href=""
+            <a href="index.html?option=-2&product=${itemFilter.id}"
                 <article class="product-card">
                     <img src="${itemFilter.imagem}" alt="${itemFilter.nome}">
                     <h3>${itemFilter.nome}</h3>
@@ -82,7 +69,7 @@ const categoriasCreate = () => {
             </a>`
         } else if (itemFilter.estoque <= 0){
             newItem = `
-            <a href=""
+            <a href="index.html?option=-2&product=${itemFilter.id}"
                 <article class="product-card">
                     <img src="${itemFilter.imagem}" alt="${itemFilter.nome}">
                     <h3>${itemFilter.nome}</h3>
@@ -91,7 +78,7 @@ const categoriasCreate = () => {
             </a>`
         } else {
             newItem = `
-            <a href=""
+            <a href="index.html?option=-2&product=${itemFilter.id}"
                 <article class="product-card">
                     <img src="${itemFilter.imagem}" alt="${itemFilter.nome}">
                     <h3>${itemFilter.nome}</h3>
@@ -148,10 +135,10 @@ const carrinhoCreate = () => {
                 estoqueArray.filter((itemEstoque) => itemEstoque.id == idProduct).forEach((itemEach) => {
                     if (itemEach.estoque > 0) {
                         subtotal += itemEach.preco - itemEach.desconto
-                        let divItemCarrinhoContent = `<div><a href="#"><img src='${itemEach.imagem}' alt='${itemEach.nome}'><span class='carrinhoItemNome'>${itemEach.nome}</span><span class='carrinhoItemPreco'>${(itemEach.preco - itemEach.desconto).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</span></a><a href="index.html?option=-1&remove=${itemEach.id}" class="removeCarrinho">Remover</a></div>`
+                        let divItemCarrinhoContent = `<div><a href="index.html?option=-2&product=${itemEach.id}"><img src='${itemEach.imagem}' alt='${itemEach.nome}'><span class='carrinhoItemNome'>${itemEach.nome}</span><span class='carrinhoItemPreco'>${(itemEach.preco - itemEach.desconto).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</span></a><a href="index.html?option=-1&remove=${itemEach.id}" class="removeCarrinho">Remover</a></div>`
                         divProductGridCarrinho.insertAdjacentHTML('beforeend', divItemCarrinhoContent)
                     } else {
-                        let divItemCarrinhoContent = `<div><a href="#"><img src='${itemEach.imagem}' alt='${itemEach.nome}'><span class='carrinhoItemNome'>${itemEach.nome}</span><span class='carrinhoItemPreco'>SEM ESTOQUE</span></a><a href="index.html?option=-1&remove=${itemEach.id}" class="removeCarrinho">Remover</a></div>`
+                        let divItemCarrinhoContent = `<div><a href="index.html?option=-2&product=${itemEach.id}"><img src='${itemEach.imagem}' alt='${itemEach.nome}'><span class='carrinhoItemNome'>${itemEach.nome}</span><span class='carrinhoItemPreco'>SEM ESTOQUE</span></a><a href="index.html?option=-1&remove=${itemEach.id}" class="removeCarrinho">Remover</a></div>`
                         divProductGridCarrinho.insertAdjacentHTML('beforeend', divItemCarrinhoContent)
                     }
 
@@ -169,34 +156,20 @@ const iniciarPag = () => {
         mainGet.insertAdjacentHTML('beforeend', createSectionDiv)
         categoriasCreate()
     } else if (categoria.id == 0) {
-        const createSectionDiv = `<section class="hero-section">
+        const createSectionDiv = `<section class="hero-section hero-section-home">
             <div class="container-info">
                 <div class="overlay"></div>
                 <div class="container-texto">
                     <h2>${destaque[0].nome}</h2>
                     <h3 class="price">${(destaque[0].preco - destaque[0].desconto).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</h3>
+                    <div class="categoriaHeroShop-action categoriaHeroShop-action-home">
+                        <a href="index.html?option=-1&add=${destaque[0].id}">Adicionar ao carrinho</a>
+                    </div>
                 </div>
             </div>
             <div class="container-reveal">
                 <div class="overlay"></div>
                 <img id="banner" src="${destaque[0].imagem}">
-            </div>
-        </section>
-        <section class="categoriaHeroShop">
-            <div class="categoriaHeroShop-info">
-                <h2>Informações do produto do Super Desconto!</h2>
-                <div>
-                    <div class="overlay"></div>
-                    <div class="info-text">
-                        <p class="infos"><strong>Estoque</strong> ${destaque[0].estoque} unidades</p>
-                        <p class="infos"><strong>Desconto</strong> ${destaque[0].desconto.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})} de desconto</p>
-                        <p class="infos"><strong>Preço sem desconto</strong> ${destaque[0].preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</p>
-                        <p class="infos borderOff"><strong>Categoria</strong> ${categoriaArray.find(item => destaque[0].categoriaId == item.id).nome}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="categoriaHeroShop-action">
-                <a href="index.html?option=-1&add=${destaque[0].id}">Adicionar ao carrinho</a>
             </div>
         </section>`
         mainGet.insertAdjacentHTML('beforeend', createSectionDiv)
@@ -205,6 +178,39 @@ const iniciarPag = () => {
         const createSectionDiv = `<section class="carrinho-header"></section><div class="product-grid-carrinho"></div><div class="product-subtotal-carrinho"></div>`
         mainGet.insertAdjacentHTML('beforeend', createSectionDiv)
         carrinhoCreate()
+    } else if (categoria.id == -2) {
+        let precoProducto = (produto.estoque > 0)? (produto.preco - produto.desconto).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'}) : 'SEM ESTOQUE'
+        const createSectionDiv = `<section class="hero-section">
+            <div class="container-info">
+                <div class="overlay"></div>
+                <div class="container-texto">
+                    <h2>${produto.nome}</h2>
+                    <h3 class="price">${precoProducto}</h3>
+                </div>
+            </div>
+            <div class="container-reveal">
+                <div class="overlay"></div>
+                <img id="banner" src="${produto.imagem}">
+            </div>
+        </section>
+        <section class="categoriaHeroShop">
+            <div class="categoriaHeroShop-info">
+                <h2>Informações do produto do Super Desconto!</h2>
+                <div>
+                    <div class="overlay"></div>
+                    <div class="info-text">
+                        <p class="infos"><strong>Estoque</strong> ${produto.estoque} unidades</p>
+                        <p class="infos"><strong>Desconto</strong> ${produto.desconto.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})} de desconto</p>
+                        <p class="infos"><strong>Preço sem desconto</strong> ${produto.preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</p>
+                        <p class="infos borderOff"><strong>Categoria</strong> ${categoriaArray.find(item => produto.categoriaId == item.id).nome}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="categoriaHeroShop-action">
+                <a href="index.html?option=-1&add=${produto.id}">Adicionar ao carrinho</a>
+            </div>
+        </section>`
+        mainGet.insertAdjacentHTML('beforeend', createSectionDiv)
     }
 }
 

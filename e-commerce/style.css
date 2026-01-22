@@ -354,13 +354,12 @@ nav ul li a:hover, nav ul li a.active, #navLinkCarrinho.active, #navLinkCarrinho
 }
 
 .categoriaHeroShop-info > div {
-    height: 100px;
     position: relative;
 }
 
 .categoriaHeroShop-info .info-text{
-    height: 100px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     justify-self: center;
 }
 
@@ -386,6 +385,10 @@ nav ul li a:hover, nav ul li a.active, #navLinkCarrinho.active, #navLinkCarrinho
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.categoriaHeroShop-action-home {
+    margin-top: 40px;
 }
 
 .categoriaHeroShop-action a {
