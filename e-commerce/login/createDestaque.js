@@ -8,7 +8,6 @@ export const trocarComEfeito = () => {
     const containerReveal = document.querySelector('.container-reveal')
     const img = document.querySelector('#banner')
     const containerInfo = document.querySelector('.container-info')
-    const btnADDcarrinhoInicio = document.querySelector('.categoriaHeroShop-action > a')
 
     containerReveal.classList.add('animar-reveal')
     containerInfo.classList.add('animar-reveal')

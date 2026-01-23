@@ -142,16 +142,18 @@ export let conta = [
         'id': 1,
         'nome': 'Michael Douglas Alves Machado',
         'email': 'michaeldouglasalvesmachado@gmail.com',
+        'senha': 'Ea1521',
         'carrinho': localStorage.getItem('carrinho1') ? JSON.parse(localStorage.getItem('carrinho1')) : []
     },
 	{
         'id': 2,
         'nome': 'Nicolas Alves Machado',
         'email': 'nicolasalvesmachado@gmail.com',
+        'senha': 'Nea1234',
         'carrinho': localStorage.getItem('carrinho2') ? JSON.parse(localStorage.getItem('carrinho2')) : []
     }
 ]
 
-export let contaLogadaId = 1
+export let contaLogadaId = null || localStorage.getItem('contaLogadaId')
 
-// api/ infos que pedimos ao bak /\
+// api/ infos que pedimos ao banco /\
