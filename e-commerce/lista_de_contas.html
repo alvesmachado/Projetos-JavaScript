@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        EcoShop - Lista de Contas Dev
+    </title>
+    <link rel="shortcut icon" href="login/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="login.css">
+    <style>
+        section > div > a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            margin: 20px;
+            display: inline-block;
+        }
+        section > div > a:hover {
+            text-decoration: underline;
+        }
+        section .container {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding: 24px 0px;
+        }
+        li {
+            padding: 8px 0;
+            font-size: 18px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div>
+            <a href="index.html">← Voltar para o Login</a>
+        </div>
+        <div class="container">
+            <h1>Lista de Contas Dev</h1>
+            <ul>
+                <!-- Contas serão inseridas aqui via JavaScript -->
+            </ul>
+        </div>
+    </section>
+    <script type="module">
+        import { conta } from "./login/apis.js"
+        const ulElement = document.querySelector("ul")
+        conta.forEach(c => {
+            let contaInfo = `<li>Conta: ${c.email} | Senha: ${c.senha}</li>`
+            ulElement.insertAdjacentHTML("beforeend", contaInfo)
+        })
+    </script>
+</body>
+</html>

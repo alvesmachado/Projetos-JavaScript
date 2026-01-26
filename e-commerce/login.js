@@ -11,19 +11,18 @@ form.addEventListener('submit', function(event) {
 document.querySelector('#loginButton').addEventListener('click', () => {
     const email = inputEmail.value
     const senha = inputSenha.value
+    const pErro = document.querySelector('#loginForm p')
     let contaEncontrada = null
     conta.find((contaAtual) => {
         if (contaAtual.email === email && contaAtual.senha === senha) {
             contaEncontrada = contaAtual
         }
     })
-    console.log(contaEncontrada.id)
-
     if (contaEncontrada) {
         localStorage.setItem('contaLogadaId', contaEncontrada.id)
         window.location.href = 'login/index.html'
     } else {
-        alert('Email ou senha incorretos. Tente novamente.')
+        pErro.innerHTML = "# Email ou Senha incorreto..."
     }
 })
 

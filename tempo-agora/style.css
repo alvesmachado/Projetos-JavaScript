@@ -1,0 +1,132 @@
+:root {
+    --background-color: #1E213A;
+    --bg2-color: #E7E7EB;
+    --font-color-secondary: #A09FB1;
+    --highlight-color: #3C47E9;
+    --font-color: #100E1D;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body, html {
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--background-color);
+    color: var(--bg2-color);
+}
+
+#containerTop {
+    background-color: var(--highlight-color);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#containerBottom {
+    background-color: var(--font-color-secondary);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 24px;
+}
+
+#headerTop {
+    height: 15vh;
+    width: 100%;
+    max-width: 1200px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    
+}
+
+
+header .material-icons {
+    justify-self: end;
+    align-self: center;
+    cursor: pointer;
+}
+#headerTop .material-icons {
+    grid-column: -2 / -1;
+    font-size: 32px;
+}
+
+#headerTop a {
+    color: var(--bg2-color);
+    text-decoration: none;
+    grid-column: 2 / 3;
+    text-shadow: 0px 0px 10px var(--bg2-color);
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#headerBottom {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    justify-content: end;
+}
+
+/* MAIN */
+
+main {
+    width: 100%;
+    max-width: 1200px;
+    padding: 24px;
+    margin: 0px auto;
+}
+
+section {
+    background-color: #ffffff21;
+    padding: 24px;
+    border-radius: 24px;
+    margin-bottom: 24px;
+}
+
+#sectionSearch {
+    display: none;
+}
+
+#iCidadeInput {
+    width: calc(100% - 49px);
+    padding: 12px 16px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border: none;
+    font-size: 16px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 2px solid var(--highlight-color);
+    border-right: none;
+    outline: none;
+    color: var(--bg2-color);
+    font-weight: bold;
+}
+
+#sectionSearch .material-icons {
+    width: 49px;
+    cursor: pointer;
+    height: 49px;
+    border: 2px solid var(--highlight-color);
+    border-left: none;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    position: absolute;
+    font-size: 32px;
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--highlight-color);
+}
+
+#sectionSearch .material-icons:hover {
+    background-color: var(--highlight-color);
+    color: var(--bg2-color);
+    transition: 0.3s;
+}

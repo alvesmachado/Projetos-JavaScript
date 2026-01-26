@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div id="containerTop">
+            <div id="headerTop">
+                <a href="">
+                    <h1>TEMPO AGORA</h1>
+                </a>
+                <span class="material-icons">search</span>
+            </div>
+        </div>
+        <div id="containerBottom">
+            <div id="headerBottom">
+                <span class="material-icons">location_on</span>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section id="sectionSearch">
+            <input type="search" name="cidadeInput" id="iCidadeInput">
+            <input type="button" class="material-icons" value="search">
+        </section>
+        <section id="sectionTime">
+            <h2>${cidadeResult}, ${paisResult}</h2>
+            <div id="tempDiv">
+
+                <p id="tempResult">${tempResult}°C</p>
+                <p id>${descResult}</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

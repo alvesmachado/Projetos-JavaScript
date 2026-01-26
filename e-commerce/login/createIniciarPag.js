@@ -80,7 +80,7 @@ export const iniciarPag = () => {
             </div>
         </section>`
         mainGet.insertAdjacentHTML('beforeend', createSectionDiv)
-        setInterval(trocarComEfeito, 30000);
+        setInterval(trocarComEfeito, 7500);
     } else if (categoria.id == -1) {
         const createSectionDiv = `<section class="carrinho-header"></section><div class="product-grid-carrinho"></div><div class="product-subtotal-carrinho"></div>`
         mainGet.insertAdjacentHTML('beforeend', createSectionDiv)
