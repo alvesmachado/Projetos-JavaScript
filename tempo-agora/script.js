@@ -6,6 +6,11 @@ const sectionTime = document.querySelector('#sectionTime')
 const cityName = document.querySelector('#iCidadeInput')
 let cityAtual = ''
 
+const loading = () => {
+    sectionTime.style.background = 'rgba(255, 255, 255, 0)'
+    sectionTime.innerHTML = `<img src="loading.png" alt="Carregando...">`
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     navigator.geolocation.getCurrentPosition(async position => {
         const lat = position.coords.latitude
@@ -32,6 +37,7 @@ const searchCity = () => {
     if (cityName.value === '') {
         return alert('Por favor, insira o nome de uma cidade.')
     } else {
+        loading()
         const ApiKey = `e80e8f039b97879406ee3b75073c01b3`
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${ApiKey}&units=metric&lang=pt_br`
         fetch(url).then(response => response.json()).then(data => {
@@ -43,7 +49,7 @@ const searchCity = () => {
                 const cidadeResult = data.name
                 const paisResult = data.sys.country
                 const tempResult = data.main.temp.toFixed(1).replace('.', ',')
-                const descResult = (data.weather[0].description).replace(/\b\w/g, char => char.toUpperCase())
+                const descResult = (data.weather[0].description).charAt(0).toUpperCase() + data.weather[0].description.slice(1)
                 const iconResult = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
                 const tempMax = data.main.temp_max.toFixed(1).replace('.', ',')
                 const tempMin = data.main.temp_min.toFixed(1).replace('.', ',')
@@ -51,7 +57,7 @@ const searchCity = () => {
                 const windSpeed = data.wind.speed.toFixed(2).replace('.', ',')
 
                 sectionTime.innerHTML = ''
-                sectionTime.style.display = 'block'
+                sectionTime.style.background = '#ffffff21'
 
                 const htmlResult = `
                     <h2>${cidadeResult}, ${paisResult}</h2>
