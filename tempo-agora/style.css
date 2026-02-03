@@ -36,7 +36,7 @@ body, html {
     justify-content: center;
     align-items: center;
     padding: 8px 24px;
-    min-height: 27px;
+    min-height: 43px;
 }
 
 #headerTop {
@@ -48,11 +48,25 @@ body, html {
     grid-template-columns: auto 1fr 1fr;
     
 }
-
-
-header .material-icons {
+#headerTop > div {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
     justify-self: end;
     align-self: center;
+    cursor: pointer;
+}
+
+#headerTop > div > a{
+    margin-bottom: 4px;
+    text-decoration: none;
+    color: var(--bg2-color);
+    font-weight: bold;
+}
+
+header .material-icons {
+    justify-self: center;
+    align-self: end;
     cursor: pointer;
 }
 #headerTop .material-icons {
@@ -60,7 +74,7 @@ header .material-icons {
     font-size: 32px;
 }
 
-#headerTop a {
+#headerTop > a {
     color: var(--bg2-color);
     text-decoration: none;
     grid-column: 2 / 3;
@@ -184,7 +198,7 @@ section {
     margin-bottom: 24px;
 }
 
-#tempDiv {
+.tempDiv {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -196,34 +210,34 @@ section {
     justify-self: center;
 }
 
-#tempImg {
+.tempImg {
     grid-row: 1 / 3;
     justify-self: end;
     margin: 24px;
 }
 
-#tempDiv p {
+.tempDiv p {
     grid-column: 2 / 3;
 }
 
-#tempResult {
+.tempResult {
     align-self: flex-end;
     font-size: 46px;
     font-weight: bold;
 }
 
-#tempDesc {
+.tempDesc {
     font-weight: bold;
 }
 
 /* Details Section */
 
-#detailsTime {
+.detailsTime {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
 
-#detailsTime div {
+.detailsTime div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -235,7 +249,153 @@ section {
     color: var(--bg2-color);
 }
 
-#detailsTime > div p {
+.detailsTime > div p {
     margin-top: 4px;
     font-style: italic;
+}
+
+/* Form Section */
+
+#loginForm {
+    background-color: var(--bg2-color);
+    padding: 24px;
+    margin-top: 24px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.formInput {
+    position: relative;
+}
+
+#loginForm .formInput {
+    width: 100%;
+}
+
+#loginForm .inputText {
+    width: 100%;
+}
+
+
+.inputLabel {
+    font-size: 20px;
+    color: var(--highlight-color);
+    background-color: var(--bg2-color);
+    padding: 0px 6px;
+    position: absolute;
+    top: 5px;
+    left: 16px;
+    transition: position 0.5s ease;
+    animation: focusOut 0.5s ease forwards;
+}
+
+.inputText {
+    padding: 3px 16px;
+    background-color: var(--bg2-color);
+    outline: none;
+    border: 1px solid var(--highlight-color);
+    border-radius: 4px;
+    padding: 16px;
+    font-size: 16px;
+    margin-bottom: 24px;
+    
+}
+
+.btnNormal {
+    border: none;
+    outline: none;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--bg2-color);
+    background-color: var(--highlight-color);
+    border-radius: 32px;
+    transition: transform 0.2s linear, background-color 0.2s linear;
+}
+
+.btnNormal:hover {
+    transform: translateY(-4px);
+}
+
+.btnNormal:active {
+    transform: translateY(-4px);
+    background-color: #313abe;
+}
+
+@keyframes focusInput {
+    from {
+        top: 13px;
+        left: 16px;
+    }
+    to {
+        top: -11px;
+        left: 16px;
+        font-size: 13px;
+    }
+    
+}
+
+@keyframes focusOut {
+    from {
+        top: -11px;
+        left: 16px;
+        font-size: 13px;
+    }
+    to {
+        top: 13px;
+        left: 16px;
+    }
+}
+
+form:has(.inputText:focus) .inputLabel, form:has(.inputText:not(:placeholder-shown)) .inputLabel {
+    animation: focusInput 0.2s linear forwards;
+}
+
+
+/* sectionHis */
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+#sectionHis {
+    display: none;
+}
+
+#sectionHis > h2 {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 8px;
+    font-size: 28px;
+}
+
+#sectionHis  h4 {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 8px;
+}
+.content > div {
+    flex: 1 1 272px;
+}
+
+.content > div:first-child { /* if itemHistoric > 3 */
+    flex: 1 1 100%; 
+}
+.content > div > h3{
+    font-size: 22px;
+    justify-self: center;
+    margin: 12px;
+}
+
+.content > div > div > .tempResult{
+    font-size: 24px;
+}
+
+.content > div > div > .tempDesc{
+    font-size: 16px;
 }
